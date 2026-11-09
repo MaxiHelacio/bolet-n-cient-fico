@@ -4,132 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeNadA | Portal de Noticias Científicas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-color: #38bdf8;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #334155;
+            --bg-color: #0b0f19;
+            --card-bg: #151c2c;
+            --card-hover: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --border-highlight: #334155;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            line-height: 1.5;
         }
 
+        /* HEADER & BRANDING */
         header {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(180deg, #131b2e 0%, var(--bg-color) 100%);
             border-bottom: 1px solid var(--border-color);
-            padding: 2.5rem 1rem 1.5rem 1rem;
+            padding: 3rem 1.5rem 2rem 1.5rem;
             text-align: center;
         }
 
-        .brand {
+        .brand-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-logo {
+            height: 52px;
+            width: auto;
+            filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.4));
+        }
+
+        .brand-title {
             font-size: 2.8rem;
             font-weight: 800;
             letter-spacing: -1px;
-            margin-bottom: 0.3rem;
+            color: #ffffff;
         }
 
-        .brand span {
-            color: var(--accent-color);
-            text-decoration: underline;
+        .brand-title span {
+            color: var(--accent-blue);
         }
 
         .subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
         }
 
-        .controls {
-            max-width: 800px;
+        /* PANEL DE BÚSQUEDA Y FILTROS */
+        .controls-wrapper {
+            max-width: 850px;
             margin: 0 auto;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
+            display: flex;
             gap: 10px;
-            justify-content: center;
-            padding: 0 1rem;
         }
 
         .search-bar {
-            flex: 1 1 300px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: #1e293b;
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-highlight);
+            background: var(--card-bg);
             color: #fff;
             font-size: 0.95rem;
             outline: none;
+            transition: all 0.2s ease;
         }
 
         .search-bar:focus {
-            border-color: var(--accent-color);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
 
         .category-select {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: #1e293b;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-highlight);
+            background: var(--card-bg);
             color: #fff;
             font-size: 0.95rem;
             outline: none;
             cursor: pointer;
         }
 
+        /* CHIPS DE CATEGORÍAS */
+        .category-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .chip {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chip:hover, .chip.active {
+            background: var(--accent-glow);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        /* SECCIÓN PRINCIPAL / GRID */
         main {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
             flex: 1;
             width: 100%;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 14px;
+            padding: 1.6rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            background-color: var(--card-hover);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .badge {
             align-self: flex-start;
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-color);
-            font-size: 0.75rem;
+            background: var(--accent-glow);
+            color: var(--accent-blue);
+            font-size: 0.72rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 30px;
             text-transform: uppercase;
-            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
         }
 
         .card-title {
@@ -137,14 +201,14 @@
             font-weight: 700;
             line-height: 1.4;
             margin-bottom: 0.8rem;
-            color: var(--text-primary);
+            color: var(--text-main);
         }
 
         .card-summary {
             font-size: 0.9rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         .card-footer {
@@ -152,25 +216,29 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             border-top: 1px solid var(--border-color);
-            padding-top: 0.8rem;
+            padding-top: 1rem;
         }
 
         .card-footer a {
-            color: var(--accent-color);
+            color: var(--accent-blue);
             text-decoration: none;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
         }
 
         .card-footer a:hover {
-            text-decoration: underline;
+            gap: 8px;
         }
 
         .empty-state {
             text-align: center;
-            color: var(--text-secondary);
-            padding: 3rem 0;
+            color: var(--text-muted);
+            padding: 4rem 0;
             font-size: 1.1rem;
         }
 
@@ -178,29 +246,44 @@
             text-align: center;
             padding: 2rem;
             border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: 0.85rem;
-            margin-top: auto;
+            background: var(--bg-color);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 class="brand">DeNad<span>A</span></h1>
-        <p class="subtitle">Archivo Histórico de Divulgación Científica</p>
+        <div class="brand-container">
+            <!-- ISOTIPO OFICIAL DeNadA (SVG) -->
+            <svg class="brand-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#38bdf8" stroke-width="3" transform="rotate(30 50 50)"/>
+                <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#38bdf8" stroke-width="3" transform="rotate(-30 50 50)"/>
+                <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#38bdf8" stroke-width="3" transform="rotate(90 50 50)"/>
+                <circle cx="50" cy="50" r="8" fill="#38bdf8"/>
+            </svg>
+            <h1 class="brand-title">DeNad<span>A</span></h1>
+        </div>
+        <p class="subtitle">Boletín de Noticias Científicas & Archivo Histórico</p>
         
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-bar" placeholder="Buscar por palabra clave o título...">
-            <select id="categoryFilter" class="category-select">
-                <option value="ALL">Todas las categorías</option>
-            </select>
+        <div class="controls-wrapper">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Buscar por palabra clave o título...">
+                <select id="categoryFilter" class="category-select">
+                    <option value="ALL">Todas las categorías</option>
+                </select>
+            </div>
+            
+            <div class="category-chips" id="categoryChips">
+                <button class="chip active" onclick="filtrarPorChip('ALL')">Todas</button>
+            </div>
         </div>
     </header>
 
     <main>
         <div id="newsGrid" class="grid"></div>
-        <div id="emptyMessage" class="empty-state" style="display: none;">No se encontraron noticias que coincidan con la búsqueda.</div>
+        <div id="emptyMessage" class="empty-state" style="display: none;">No se encontraron publicaciones que coincidan con la búsqueda.</div>
     </main>
 
     <footer>
@@ -213,29 +296,39 @@
         async function cargarHistorico() {
             try {
                 const response = await fetch('./historico_noticias.json');
-                if (!response.ok) throw new Error("No se pudo cargar el archivo de histórico.");
+                if (!response.ok) throw new Error("Error cargando histórico.");
                 todasLasNoticias = await response.json();
                 
-                // Ordenar por fecha descendente
+                // Mostrar noticias más recientes primero
                 todasLasNoticias.reverse();
                 
                 poblarCategorias();
                 renderizarNoticias(todasLasNoticias);
             } catch (error) {
-                console.error("Error al cargar las noticias:", error);
-                document.getElementById('newsGrid').innerHTML = '<p class="empty-state">Aún no hay historias registradas en el histórico.</p>';
+                console.error("Error:", error);
+                document.getElementById('newsGrid').innerHTML = '<p class="empty-state">No hay historias disponibles en el histórico actualmente.</p>';
             }
         }
 
         function poblarCategorias() {
             const select = document.getElementById('categoryFilter');
+            const chipsContainer = document.getElementById('categoryChips');
+            
             const categorias = [...new Set(todasLasNoticias.map(n => n.categoria || 'General'))];
             
             categorias.forEach(cat => {
+                // Agregar al desplegable
                 const option = document.createElement('option');
                 option.value = cat;
                 option.textContent = cat;
                 select.appendChild(option);
+
+                // Agregar como chip rápido
+                const chipBtn = document.createElement('button');
+                chipBtn.className = 'chip';
+                chipBtn.textContent = cat;
+                chipBtn.onclick = () => filtrarPorChip(cat);
+                chipsContainer.appendChild(chipBtn);
             });
         }
 
@@ -260,8 +353,8 @@
                         <p class="card-summary">${item.resumen}</p>
                     </div>
                     <div class="card-footer">
-                        <span>${item.fecha} • ${item.fuente}</span>
-                        <a href="${item.url}" target="_blank" rel="noopener">Leer noticia &rarr;</a>
+                        <span>${item.fecha || ''} ${item.fuente ? '• ' + item.fuente : ''}</span>
+                        <a href="${item.url}" target="_blank" rel="noopener">Leer más ↗</a>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -271,6 +364,15 @@
         function filtrarNoticias() {
             const busqueda = document.getElementById('searchInput').value.toLowerCase();
             const categoria = document.getElementById('categoryFilter').value;
+
+            // Sincronizar estado visual de los chips
+            document.querySelectorAll('.chip').forEach(chip => {
+                if(chip.textContent === categoria || (categoria === 'ALL' && chip.textContent === 'Todas')) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
 
             const filtradas = todasLasNoticias.filter(noticia => {
                 const coincideTexto = noticia.titulo.toLowerCase().includes(busqueda) || 
@@ -282,10 +384,15 @@
             renderizarNoticias(filtradas);
         }
 
+        function filtrarPorChip(cat) {
+            document.getElementById('categoryFilter').value = cat;
+            filtrarNoticias();
+        }
+
         document.getElementById('searchInput').addEventListener('input', filtrarNoticias);
         document.getElementById('categoryFilter').addEventListener('change', filtrarNoticias);
 
-        // Cargar al iniciar
+        // Inicializar
         cargarHistorico();
     </script>
 </body>
